@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMK IT TEBUIRENG 3</title>
+ <!-- Tambahan Favicon (ini yang bikin logo muncul di tab browser) -->
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon"> <!-- Kalau punya file .ico lokal -->
+    <link rel="icon" href="logo-SMK.png" type="image/png"> <!-- Kalau pakai .png lokal -->
+    <!-- Kalau mau pakai link online sementara (dari logo resmi sekolah) -->
+    <link rel="icon" href="https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=101312764587509" type="image/jpeg">
+    <link rel="apple-touch-icon" href="https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=101312764587509">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; line-height: 1.6; color: #333; }
+        a { text-decoration: none; }
+
+        /* Navbar */
+        nav {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+        nav.scrolled { background: rgba(0, 51, 102, 0.95); }
+        .logo { display: flex; align-items: center; color: white; font-weight: 700; }
+        .logo img { height: 50px; margin-right: 10px; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: white; font-weight: 500; transition: 0.3s; font-size: 0.9rem; }
+        .nav-links a:hover { color: #00d4ff; }
+
+        /* Slider */
+        .slider { position: relative; height: 80vh; overflow: hidden; }
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; transition: opacity 1s ease-in-out;
+        }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+        .slide.active { opacity: 1; }
+        .hero {
+            text-align: center; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); color: white; z-index: 10; width: 90%;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; }
+        .btn { 
+            background: #00d4ff; color: white; padding: 12px 30px; border-radius: 50px; 
+            font-weight: 600; transition: 0.3s; display: inline-block;
+        }
+        .btn:hover { background: #00a8cc; transform: scale(1.05); }
+
+        /* Sections */
+        section { padding: 60px 5%; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 40px; color: #003366; }
+        .about, .principal, .programs, .articles, .gallery { background: #f8f9fa; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card {
+            background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center; transition: all 0.4s ease;
+        }
+        .card:hover { transform: translateY(-10px); }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
+
+        /* Animasi Foto Kepala Sekolah */
+        .principal-photo img {
+            width: 300px; height: 300px; object-fit: cover; border-radius: 50%;
+            border: 8px solid #00d4ff; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.6s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+        .principal-photo img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 20px 40px rgba(0,212,255,0.4);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .principal-content {
+            display: flex; align-items: center; flex-wrap: wrap; gap: 40px;
+            max-width: 1100px; margin: 0 auto; text-align: left;
+        }
+        .principal-text h3 { font-size: 2rem; color: #003366; margin-bottom: 10px; }
+        .principal-text p { font-style: italic; color: #555; line-height: 1.8; }
+
+        /* Statistik Profil */
+        .profile-stats {
+            display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 30px;
+        }
+        .stat { text-align: center; margin: 20px; }
+        .stat h3 { font-size: 2.5rem; color: #00d4ff; }
+        .stat p { font-size: 1.1rem; }
+
+        /* Footer */
+        footer { background: #003366; color: white; text-align: center; padding: 50px 20px; }
+        .social-links a { color: white; font-size: 1.5rem; margin: 0 15px; transition: 0.3s; }
+        .social-links a:hover { color: #00d4ff; }
+
+        @media (max-width: 768px) {
+            .principal-content { flex-direction: column; text-align: center; }
+            .principal-photo img { width: 250px; height: 250px; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="logo">
+            <img src="logo SMK.png" alt="Logo">
+            SMK IT TEBUIRENG III
+        </div>
+        <div class="nav-links">
+            <a href="#home">Beranda</a>
+            <a href="#profil">Profil</a>
+            <a href="#about">Tentang</a>
+            <a href="#principal">Kepala Sekolah</a>
+            <a href="#visi-misi">Visi Misi</a>
+            <a href="#programs">Program Study</a>
+            <a href="#articles">Artikel & Kegiatan</a>
+            <a href="#gallery">Galeri</a>
+            <a href="#contact">Kontak</a>
+        </div>
+    </nav>
+
+    <!-- Slider -->
+    <section id="home" class="slider">
+        <div class="slide"><img src="bg1 (1).jpg" alt="Slide 1"></div>
+        <div class="slide"><img src="bg2.jpg" alt="Slide 2"></div>
+        <div class="slide"><img src="bg3.jpg" alt="Slide 3"></div>
+        <div class="hero">
+            <h1>Selamat Datang di SMK IT TEBUIRENG 3</h1>
+            <p>Sekolah unggul islami, agamis dan terampil.</p>
+        </div>
+    </section>
+
+    <!-- Profil Sekolah -->
+    <section id="profil">
+        <h2 class="section-title">Profil Sekolah</h2>
+        <p>SMK IT TEBUIRENG III berdiri sejak tahun 2013 dan terus berkembang menghasilkan siswa berprestasi tinggi.</p>
+        <div class="profile-stats">
+            <div class="stat"><h3>200+</h3><p>Siswa Aktif</p></div>
+            <div class="stat"><h3>25</h3><p>Tenaga Pendidik</p></div>
+            <div class="stat"><h3>85%</h3><p>Penyerapan Tenaga Kerja Lulusan</p></div>
+        </div>
+    </section>
+
+    <!-- Tentang Sekolah -->
+    <section id="about" class="about">
+        <h2 class="section-title">Tentang Sekolah</h2>
+        <p>SMK IT Tebuireng 3 adalah lembaga pendidikan kejuruan yang berfokus pada pengembangan keterampilan di bidang teknologi informasi dan agribisnis. Sekolah kami memadukan kurikulum nasional dengan nilai-nilai keislaman untuk membentuk generasi yang unggul dalam ilmu pengetahuan dan akhlak mulia.</p>
+    </section>
+
+    <!-- Kepala Sekolah + Animasi Foto -->
+    <section id="principal" class="principal">
+        <h2 class="section-title">Pembuat Web</h2>
+        <div class="principal-content">
+            <div class="principal-photo">
+                <img src="pmweb.jpg" alt="Kepala Sekolah">
+            </div>
+            <div class="principal-text">
+                <h3>Wahyu Santoso S.Kom</h3>
+                <p>"Assalamu'alaikum Warahmatullahi Wabarakatuh.<br><br>
+                Selamat datang di website skolah karya siswa kelas xii tkj"</p>
+                <p style="margin-top:20px; font-style:normal;">Wassalamu'alaikum Warahmatullahi Wabarakatuh.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visi Misi -->
+    <section id="visi-misi">
+        <h2 class="section-title">Visi & Misi Sekolah</h2>
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-eye" style="font-size:3rem;color:#00d4ff;"></i>
+                <h3>Visi</h3>
+                <p>Menjaga dan menjalankan syariat Islam
+Mengedepankan akhlakul karimah
+Peduli terhadap sesama</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-bullseye" style="font-size:3rem;color:#00d4ff;"></i>
+                <h3>Misi</h3>
+                <p>1. Menjadikan sekolah sebagai lembaga dakwah berbasis pendidikan.<br>2. Menanamkan kesadran siswa dalam beribadah.<br>3. Menanamkan nilai-nilai akhlakul karimah dalam kehidupan sehari-hari.<br>4. Membekali siswa dengan skill yang memadai sehingga menjadi insan yang mandiri dan bersaing dalam era teknologi global.<br>5. Meningkatkan prestasi akademik maupun non academik.<br>6. Bekerjasama dengan pihak-pihak terkait</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Study -->
+    <section id="programs" class="programs">
+        <h2 class="section-title">Program Study</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="ft ttkj.jpg" alt="TKJ">
+                <h3>Teknik Komputer dan Jaringan (TKJ)</h3>
+                <p>Program studi yang membekali siswa dengan keterampilan dalam bidang perakitan komputer, instalasi jaringan, pemrograman, dan troubleshooting perangkat IT.</p>
+            </div>
+            <div class="card">
+                <img src="ft attph.jpg" alt="ATPH">
+                <h3>Agribisnis Tanaman Pangan & Hortikultura (ATPH)</h3>
+                <p>Program studi yang membekali siswa dengan keterampilan dalam bidang budidaya tanaman pangan, hortikultura, dan pengelolaan agribisnis dengan teknologi modern.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artikel & Kegiatan -->
+    <section id="articles" class="articles">
+        <h2 class="section-title">Artikel & Kegiatan</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="ar1.jpg" alt="Literasi">
+                <h3>Kegiatan pramuka satu yayasan</h3>
+                <p>Pramuka sangat penting karena membentuk karakter kuat, kemandirian, dan keterampilan hidup kaum muda melalui kegiatan yang mendidik, menanamkan nilai moral, disiplin, kepemimpinan, serta rasa cinta tanah air dan kebersamaan, menjadikannya wadah pembentukan generasi tangguh, berakhlak mulia, dan siap membangun bangsa Indonesia. </p>
+            </div>
+            <div class="card">
+                <img src="ar2.jpg" alt="Kunjungan">
+                <h3>Kegiatan memperingati hari besar kelahiran nabi muhammad saw</h3>
+                <p>Peringatan Maulid Nabi Muhammad SAW adalah perayaan tahunan untuk memperingati kelahiran beliau (12 Rabiul Awal), berisi kegiatan ibadah seperti membaca Al-Qur'an, sholawat, ceramah sirah (kisah nabi), dan tradisi lokal seperti Grebeg Maulud di Solo atau Maudu Lompoa di Takalar, sebagai wujud cinta, refleksi akhlak, dan pengingat ajaran Nabi, meskipun ada perbedaan pendapat ulama soal keabsahannya (bid'ah hasanah vs. bid'ah). </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri Kegiatan (15 Foto) -->
+    <section id="gallery" class="gallery">
+        <h2 class="section-title">Galeri Kegiatan</h2>
+        <div class="grid">
+            <div class="card"><img src="gr1.jpg" alt="1"></div>
+            <div class="card"><img src="gr2.jpg" alt="2"></div>
+            <div class="card"><img src="gr2.jpg" alt="3"></div>
+            <div class="card"><img src="gr4.jpg" alt="4"></div>
+            <div class="card"><img src="gr5.jpg" alt="5"></div>
+            <div class="card"><img src="gr6.jpg" alt="6"></div>
+            <div class="card"><img src="gr7.jpg" alt="7"></div>
+            <div class="card"><img src="gr8.jpg" alt="8"></div>
+            <div class="card"><img src="gr10.jpg" alt="9"></div>
+            <div class="card"><img src="gr11.JPG" alt="10"></div>
+            <div class="card"><img src="gr12.JPG" alt="11"></div>
+            <div class="card"><img src="gr13.JPG" alt="12"></div>
+            <div class="card"><img src="gr14.JPG" alt="13"></div>
+            <div class="card"><img src="gr15.JPG" alt="14"></div>
+            <div class="card"><img src="gr9.JPG" alt="15"></div>
+        </div>
+    </section>
+
+    <!-- Footer + Alamat Sekolah -->
+    <footer id="contact">
+        <h3>Alamat Sekolah</h3>
+        <p>KM 09 Petalongan Kec. Keritang Kab. IndraGiri Hilir Riau</p>
+        <p>Telp: +62 822 8345 1983 +62 852 3480 9117 | Email: smktebuireng3@gmail.com</p>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3147.9714662938595!2d102.65446427371128!3d-0.7141572992788792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e29052c80680c27%3A0x1b3b9e127655b755!2sSMK%20IT%20Tebuireng3!5e1!3m2!1sid!2sid!4v1712485936044!5m2!1sid!2sid" width="600" height="300" style="border:0; max-width:100%;" allowfullscreen="" loading="lazy"></iframe>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; 2025 SMK IT TEBUIRENG 3. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 100);
+        });
+
+        // Slider otomatis
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        slides[0].classList.add('active');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000);
+    </script>
+</body>
+</html>
